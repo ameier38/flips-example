@@ -15,15 +15,13 @@ match rock.RockType with
 We have a few different buyers that will purchase our rocks, but
 each one has a limit on the total amount they will buy (the capacity),
 and how much they will pay (a discount to the market price).
-We will divide our rocks into different buckets in order to
-sell to each buyer.
 
 ```fsharp
-let buckets =
-    [ { BucketId = %"B1"; Capacity = 40.0<kg>; Gold = 5.0<kg>; Silver = 10.0<kg>; Bronze = 5.0<kg>;  Discount = 0.1; }
-      { BucketId = %"B2"; Capacity = 50.0<kg>; Gold = 10.0<kg>; Silver = 5.0<kg>; Bronze = 5.0<kg>; Discount = 0.08 }
-      { BucketId = %"B3"; Capacity = 30.0<kg>; Gold = 5.0<kg>; Silver = 0.0<kg>; Bronze = 2.0<kg>; Discount = 0.0 }
-      { BucketId = %"B4"; Capacity = 10.0<kg>; Gold = 1.0<kg>; Silver = 1.0<kg>; Bronze = 0.5<kg>; Discount = 0.05 } ]
+let buyers =
+    [ { BuyerId = %"B1"; Capacity = 40.0<kg>; CurrentGold = 5.0<kg>; CurrentSilver = 10.0<kg>; CurrentBronze = 5.0<kg>;  Discount = 0.1; }
+      { BuyerId = %"B2"; Capacity = 50.0<kg>; CurrentGold = 10.0<kg>; CurrentSilver = 5.0<kg>; CurrentBronze = 5.0<kg>; Discount = 0.08 }
+      { BuyerId = %"B3"; Capacity = 30.0<kg>; CurrentGold = 5.0<kg>; CurrentSilver = 0.0<kg>; CurrentBronze = 2.0<kg>; Discount = 0.0 }
+      { BuyerId = %"B4"; Capacity = 10.0<kg>; CurrentGold = 1.0<kg>; CurrentSilver = 1.0<kg>; CurrentBronze = 0.5<kg>; Discount = 0.05 } ]
 ```
 
 Also, the buyers don't want too much of any one rock (they like to diversify),
@@ -58,14 +56,17 @@ Run the [optimize.fsx](./optimize.fsx) script.
 dotnet fsi optimize.fsx
 ```
 ```
-Total bucket capacity: 130
+Total buyer capacity: 130
 Total rock weight: 188.40000000000003
-Real: 00:00:00.781, CPU: 00:00:01.187, GC gen0: 1, gen1: 0, gen2: 0
+Real: 00:00:00.844, CPU: 00:00:01.218, GC gen0: 0, gen1: 0, gen2: 0
 Total price: $73.791000
 ```
 
 > The solution is written to [data/solution.csv](./data/solution.csv)
 You can plug into the Excel file and check that the output is the same.
+
+## Conclusion
+Use FLIPs and make more money.
 
 ## Resources
 - [FLIPS Homepage](https://flipslibrary.com/#/)
