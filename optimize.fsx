@@ -105,11 +105,11 @@ let rockWeight: SMap2<RockId, RockType, Kg> =
 
 let rockBought: SMap2<RockId, BuyerId, Decision<1>> =
     [ for rock in rocks do
-          for buyer in buyers do
+        for buyer in buyers do
             let rockId, buyerId = rock.RockId, buyer.BuyerId
             (rockId, buyerId),
             Decision.createBoolean $"{rockId}_bought_by_{buyerId}" ]
-    |> SMap2.ofList
+    |> SMap2
 
 // Objective
 
@@ -132,7 +132,7 @@ let createConcentrationConstraint (rockType:RockType) (concentrationLimit:float)
             | Silver -> buyer.CurrentSilver
             | Bronze -> buyer.CurrentBronze
         let currentWeight = buyer.CurrentGold + buyer.CurrentSilver + buyer.CurrentBronze
-        let rockWeightAdded = sum (rockBought.[All, buyer.BuyerId] .* rockWeight.[All, Equals rockType])
+        let rockWeightAdded = sum (rockBought.[All, buyer.BuyerId] .* rockWeight.[All, rockType])
         let weightAdded = sum (rockBought.[All, buyer.BuyerId] .* rockWeight)
         let newRockWeight = currentRockWeight + rockWeightAdded
         let newWeight = currentWeight + weightAdded
